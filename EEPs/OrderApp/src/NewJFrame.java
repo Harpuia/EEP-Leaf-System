@@ -304,7 +304,7 @@ public class NewJFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
+        /*
         // jButton1 is responsible for querying the inventory database and
         // getting the tree inventory. Once retieved, the tree inventory is
         // displayed in jTextArea1. From here the user can select an inventory
@@ -381,7 +381,10 @@ public class NewJFrame extends javax.swing.JFrame {
                 jTextArea1.append(errString);
 
             } // end try-catch
-        } // if connect check
+        } // if connect check*/
+        String sqlServerIP = jTextField1.getText();
+        OrderBusinessLogic orderBL = new OrderBusinessLogic(sqlServerIP);
+        jTextArea1.append(orderBL.GetTrees());
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
