@@ -4,6 +4,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 
 /**
@@ -41,4 +42,55 @@ public class InventoryDataAccess extends DataAccessBase {
             return null;
         }
     }
-}
+    
+    public Collection<InventoryItem> SelectSeedsInventory(String log) {
+        log = null;
+        Collection<InventoryItem> result = new ArrayList<InventoryItem>();
+        InventoryItem item;
+        Connection connection = this.ConnectToDb(log);
+        if (connection != null) {
+            try {
+                Statement statement = connection.createStatement();
+                ResultSet queryResult = statement.executeQuery("Select * from seeds");
+
+                //Display the data in the textarea
+                while (queryResult.next()) {
+                    item = new InventoryItem(ItemType.SEEDS, queryResult.getString(1), queryResult.getString(2), queryResult.getString(4), queryResult.getString(3));
+                    result.add(item);
+                }
+                return (result);
+            } catch (Exception e) {
+                log = "\nProblem getting seed inventory:: " + e;
+                return null;
+            }
+        } else {
+            return null;
+        }
+    }
+    
+    public Collection<InventoryItem> SelectShrubsInventory(String log) {
+        log = null;
+        Collection<InventoryItem> result = new ArrayList<InventoryItem>();
+        InventoryItem item;
+        Connection connection = this.ConnectToDb(log);
+        if (connection != null) {
+            try {
+                Statement statement = connection.createStatement();
+                ResultSet queryResult = statement.executeQuery("Select * from shrubs");
+
+                //Display the data in the textarea
+                while (queryResult.next()) {
+                    item = new InventoryItem(ItemType.SHRUBS, queryResult.getString(1), queryResult.getString(2), queryResult.getString(4), queryResult.getString(3));
+                    result.add(item);
+                }
+                return (result);
+            } catch (Exception e) {
+                log = "\nProblem getting shrub inventory:: " + e;
+                return null;
+            }
+        } else {
+            return null;
+        }
+    }
+   
+    }

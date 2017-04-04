@@ -483,7 +483,9 @@ public class NewJFrame extends javax.swing.JFrame {
         // the list of items is stored. This table is also in the orderinfo
         // database as well.
         
-        int beginIndex;                 // String parsing index
+        
+        
+       /* int beginIndex;                 // String parsing index
         Boolean connectError = false;   // Error flag
         String customerAddress;         // Buyers mailing address
         int endIndex;                   // String paring index
@@ -708,8 +710,24 @@ public class NewJFrame extends javax.swing.JFrame {
 
             } //for each line of text in order table
                 
+        }*/
+      
+      String sqlServerIP = jTextField1.getText();
+        OrderBusinessLogic orderBL = new OrderBusinessLogic(sqlServerIP);
+        String result=orderBL.Orders(jTextField3.getText(), jTextField4.getText(),jTextArea4.getText(),jTextField5.getText(),jTextField6.getText(),jTextArea2.getText().split("\\n"));
+        if(result==null)
+        {
+            jTextArea3.setText("\nORDER SUBMITTED FOR: " + jTextField3.getText() + " " + jTextField4.getText());
+            jTextArea1.setText("");
+            jTextArea2.setText("");
+            jTextArea4.setText("");
+            jTextField3.setText("");
+            jTextField4.setText("");
+            jTextField5.setText("");
+            jTextField6.setText("$0");
         }
 
+            jTextArea3.append(result);
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
@@ -722,7 +740,7 @@ public class NewJFrame extends javax.swing.JFrame {
         // displayed in jTextArea1. From here the user can select an inventory
         // item by triple clicking the item.
 
-        Boolean connectError = false;       // Error flag
+        /*Boolean connectError = false;       // Error flag
         Connection DBConn = null;           // MySQL connection handle
         String errString = null;            // String for displaying errors
         String msgString = null;            // String for displaying non-error messages
@@ -791,7 +809,11 @@ public class NewJFrame extends javax.swing.JFrame {
                 jTextArea1.append(errString);
 
             } // end try-catch
-        } // if connect check
+        } // if connect check*/
+        
+        String sqlServerIP = jTextField1.getText();
+        OrderBusinessLogic orderBL = new OrderBusinessLogic(sqlServerIP);
+        jTextArea1.append(orderBL.GetSeeds());
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -800,7 +822,7 @@ public class NewJFrame extends javax.swing.JFrame {
         // displayed in jTextArea1. From here the user can select an inventory
         // item by triple clicking the item.
 
-        Boolean connectError = false;       // Error flag
+        /*Boolean connectError = false;       // Error flag
         Connection DBConn = null;           // MySQL connection handle
         String errString = null;            // String for displaying errors
         String msgString = null;            // String for displaying non-error messages
@@ -869,7 +891,11 @@ public class NewJFrame extends javax.swing.JFrame {
                 jTextArea1.append(errString);
 
             } // end try-catch
-        } // if connect check
+        } // if connect check*/
+        
+        String sqlServerIP = jTextField1.getText();
+        OrderBusinessLogic orderBL = new OrderBusinessLogic(sqlServerIP);
+        jTextArea1.append(orderBL.GetShrubs());
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
