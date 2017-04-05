@@ -18,7 +18,7 @@ public class DataAccessBase {
     private final String sqlServerUserName = "remote";
     private final String sqlServerPassword = "remote_pass";
     private String sqlServerIP;
-    private String databaseName;
+    protected String databaseName;
 
     public DataAccessBase() {
 
