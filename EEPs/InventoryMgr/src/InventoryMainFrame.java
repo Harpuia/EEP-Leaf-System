@@ -373,6 +373,7 @@ public class InventoryMainFrame extends javax.swing.JFrame {
                 itemType = ItemType.SHRUBS;
             }
             //TODO: Add the other options once UI coded
+            
         } else {
             msgString = "Must select Tree, Seeds, or Shrubs radio button.";
             jTextArea1.setText("\n" + msgString);
@@ -395,7 +396,10 @@ public class InventoryMainFrame extends javax.swing.JFrame {
             jTextArea1.append(inventory.getInventoryItems(itemType));
         }
     }//GEN-LAST:event_jButton2ActionPerformed
-
+    /**
+     * Deletes an inventory item
+     * @param evt 
+     */
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {
         // Deletes an item from the database
         int beginIndex;                     // Parsing index
@@ -449,9 +453,10 @@ public class InventoryMainFrame extends javax.swing.JFrame {
                     itemType = ItemType.SEEDS;
                 }
                 //TODO: complete items
+                
                 Integer executeUpdateVal = null;
                 InventoryBusinessLogic inventory = new InventoryBusinessLogic(sqlServerIP);
-                executeUpdateVal = inventory.deleteInventoryItems(productID, itemType, errString);
+                executeUpdateVal = inventory.deleteInventoryItem(productID, itemType, errString);
                 if (executeUpdateVal > 0) {
                     // let the user know all went well
                     jTextArea1.append("\n\n" + productID + " deleted...");
@@ -467,6 +472,10 @@ public class InventoryMainFrame extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * Decrements the count of an inventory item
+     * @param evt 
+     */
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // Decrements the inventory count for a selected item
         int beginIndex;                     // Parsing index
@@ -515,28 +524,7 @@ public class InventoryMainFrame extends javax.swing.JFrame {
             // Now we decrement the inventory count of the item indicated by the productID we
             // parsed out above from the indicated table.
             if (!IndexNotFound) {
-                jTextArea1.setText("");
-                jTextArea1.append("Deleting ProductID: " + productID);
-
-                // set up a connection to the LeafTech database
-                try {
-                    //load JDBC driver class for MySQL
-                    Class.forName("com.mysql.jdbc.Driver");
-
-                    //define the data source
-                    String SQLServerIP = jTextField1.getText();
-                    String sourceURL = "jdbc:mysql://" + SQLServerIP + ":3306/inventory";
-
-                    //create a connection to the db
-                    DBConn = DriverManager.getConnection(sourceURL, "remote", "remote_pass");
-
-                } catch (Exception e) {
-
-                    errString = "\nProblem connecting to database:: " + e;
-                    jTextArea1.append(errString);
-                    connectError = true;
-
-                } // end try-catch
+                
 
                 //If there is no connection error, then we form the SQL statement
                 //to decrement the inventory item count and then execute it.

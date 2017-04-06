@@ -20,32 +20,7 @@ public class InventoryDataAccess extends DataAccessBase {
         super(sqlServerIP, DataUtilities.GetDatabaseName(itemType));
     }
 
-    public Collection<InventoryItem> SelectTreeInventory(String log) {
-        log = null;
-        Collection<InventoryItem> result = new ArrayList<InventoryItem>();
-        InventoryItem item;
-        Connection connection = this.ConnectToDb(log);
-        if (connection != null) {
-            try {
-                Statement statement = connection.createStatement();
-                ResultSet queryResult = statement.executeQuery("Select * from trees");
-
-                //Display the data in the textarea
-                while (queryResult.next()) {
-                    item = new InventoryItem(ItemType.TREES, queryResult.getString(1), queryResult.getString(2), queryResult.getString(4), queryResult.getString(3));
-                    result.add(item);
-                }
-                return (result);
-            } catch (Exception e) {
-                log = "\nProblem getting tree inventory:: " + e;
-                return null;
-            }
-        } else {
-            return null;
-        }
-    }
-
-    public String InsertInventoryItem(InventoryItem item) {
+    public String insertInventoryItem(InventoryItem item) {
         StringBuilder log = new StringBuilder();
         int executeUpdateVal;
         String logLine = null, sqlStatement = null, tableSelected = null;
@@ -123,7 +98,7 @@ public class InventoryDataAccess extends DataAccessBase {
         return result;
     }
 
-    public int DeleteInventoryItem(String id, ItemType itemType, String log) {
+    public int deleteInventoryItem(String id, ItemType itemType, String log) {
         StringBuilder output = new StringBuilder();
         String logLine = null, sqlStatement = null;
         Connection connection = this.ConnectToDb(logLine);
@@ -152,55 +127,5 @@ public class InventoryDataAccess extends DataAccessBase {
         }
         log= output.toString();
         return executeUpdateVal;
-    }
-
-    public Collection<InventoryItem> SelectSeedsInventory(String log) {
-        log = null;
-        Collection<InventoryItem> result = new ArrayList<InventoryItem>();
-        InventoryItem item;
-        Connection connection = this.ConnectToDb(log);
-        if (connection != null) {
-            try {
-                Statement statement = connection.createStatement();
-                ResultSet queryResult = statement.executeQuery("Select * from seeds");
-
-                //Display the data in the textarea
-                while (queryResult.next()) {
-                    item = new InventoryItem(ItemType.SEEDS, queryResult.getString(1), queryResult.getString(2), queryResult.getString(4), queryResult.getString(3));
-                    result.add(item);
-                }
-                return (result);
-            } catch (Exception e) {
-                log = "\nProblem getting seed inventory:: " + e;
-                return null;
-            }
-        } else {
-            return null;
-        }
-    }
-
-    public Collection<InventoryItem> SelectShrubsInventory(String log) {
-        log = null;
-        Collection<InventoryItem> result = new ArrayList<InventoryItem>();
-        InventoryItem item;
-        Connection connection = this.ConnectToDb(log);
-        if (connection != null) {
-            try {
-                Statement statement = connection.createStatement();
-                ResultSet queryResult = statement.executeQuery("Select * from shrubs");
-
-                //Display the data in the textarea
-                while (queryResult.next()) {
-                    item = new InventoryItem(ItemType.SHRUBS, queryResult.getString(1), queryResult.getString(2), queryResult.getString(4), queryResult.getString(3));
-                    result.add(item);
-                }
-                return (result);
-            } catch (Exception e) {
-                log = "\nProblem getting shrub inventory:: " + e;
-                return null;
-            }
-        } else {
-            return null;
-        }
     }
 }

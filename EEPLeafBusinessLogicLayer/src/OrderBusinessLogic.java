@@ -18,11 +18,11 @@ public class OrderBusinessLogic {
         this.sqlServerIp = sqlServerIp;
     }
 
-    public String GetTrees() {
+    public String GetInventoryItems(ItemType itemType) {
         StringBuilder result = new StringBuilder();
         InventoryDataAccess inventory = new InventoryDataAccess(this.sqlServerIp);
         String log = null;
-        Collection<InventoryItem> trees = inventory.SelectTreeInventory(log);
+        Collection<InventoryItem> trees = inventory.selectInventoryItems(itemType, log);
         if (trees != null) {
             for (InventoryItem item : trees) {
                 result.append(item.toString() + "\n");
@@ -32,41 +32,11 @@ public class OrderBusinessLogic {
             return log;
         }
     }
-    
-        public String GetSeeds() {
-        StringBuilder result = new StringBuilder();
-        InventoryDataAccess inventory = new InventoryDataAccess(this.sqlServerIp);
+
+    public String CreateOrder(String firstName, String lastName, String customerAddress, String phoneNumber, String sTotalCost, String[] items) {
+        OrderDataAccess orders = new OrderDataAccess(this.sqlServerIp);
         String log = null;
-        Collection<InventoryItem> seeds = inventory.SelectSeedsInventory(log);
-        if (seeds != null) {
-            for (InventoryItem item : seeds) {
-                result.append(item.toString() + "\n");
-            }
-            return result.toString();
-        } else {
-            return log;
-        }
+        String result = orders.CreateAndInsertOrder(log, firstName, lastName, customerAddress, phoneNumber, sTotalCost, items);
+        return result;
     }
-        
-        public String GetShrubs() {
-        StringBuilder result = new StringBuilder();
-        InventoryDataAccess inventory = new InventoryDataAccess(this.sqlServerIp);
-        String log = null;
-        Collection<InventoryItem> shrubs = inventory.SelectShrubsInventory(log);
-        if (shrubs != null) {
-            for (InventoryItem item : shrubs) {
-                result.append(item.toString() + "\n");
-            }
-            return result.toString();
-        } else {
-            return log;
-        }
-    }
-       public String Orders(String firstName, String lastName, String customerAddress, String phoneNumber, String sTotalCost, String[] items)
-       {
-           OrderDataAccess inventory = new OrderDataAccess(this.sqlServerIp);
-           String log = null;
-           String result=inventory.CreateAndInsertOrder(log, firstName, lastName, customerAddress, phoneNumber, sTotalCost, items); 
-           return result;
-       }
 }

@@ -21,7 +21,7 @@ public class InventoryBusinessLogic {
     public String addInventoryItem(InventoryItem item) {
         String log;
         InventoryDataAccess inventory = new InventoryDataAccess(this.sqlServerIp, item.type);
-        log = inventory.InsertInventoryItem(item);
+        log = inventory.insertInventoryItem(item);
         return log;
     }
 
@@ -43,10 +43,10 @@ public class InventoryBusinessLogic {
         }
     }
 
-    public int deleteInventoryItems(String id, ItemType itemType, String log) {
+    public int deleteInventoryItem(String id, ItemType itemType, String log) {
         int executeUpdateValue;
         InventoryDataAccess inventory = new InventoryDataAccess(this.sqlServerIp, itemType);
-        executeUpdateValue = inventory.DeleteInventoryItem(id, itemType, log);
+        executeUpdateValue = inventory.deleteInventoryItem(id, itemType, log);
         return executeUpdateValue;
     }
 }
