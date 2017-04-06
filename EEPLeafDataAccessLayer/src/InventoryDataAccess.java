@@ -1,14 +1,8 @@
-
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collection;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Allows access to the Orders Database
@@ -18,11 +12,11 @@ import java.util.logging.Logger;
 public class InventoryDataAccess extends DataAccessBase {
 
     public InventoryDataAccess(String sqlServerIP) {
-        super(sqlServerIP, "order");
+        super(sqlServerIP, "inventory");
     }
 
-    public InventoryDataAccess(String sqlServerIP, String databaseName) {
-        super(sqlServerIP, databaseName);
+    public InventoryDataAccess(String sqlServerIP, ItemType itemType) {
+        super(sqlServerIP, DataUtilities.GetDatabaseName(itemType));
     }
 
     public Collection<InventoryItem> SelectTreeInventory(String log) {

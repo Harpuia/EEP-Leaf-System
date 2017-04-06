@@ -20,18 +20,16 @@ public class InventoryBusinessLogic {
 
     public String addInventoryItem(InventoryItem item) {
         String log;
-        InventoryDataAccess inventory = new InventoryDataAccess(this.sqlServerIp, DataUtilities.GetDatabaseName(item.type));
+        InventoryDataAccess inventory = new InventoryDataAccess(this.sqlServerIp, item.type);
         log = inventory.InsertInventoryItem(item);
         return log;
     }
 
-    public String getInventoryItems(String sqlServerIpAddress, ItemType itemType) {
+    public String getInventoryItems(ItemType itemType) {
         String msgString = null;
         StringBuilder output = new StringBuilder();
-        String databaseName = null;
-        InventoryDataAccess inventory = new InventoryDataAccess(this.sqlServerIp, DataUtilities.GetDatabaseName(itemType));
-        InventoryDataAccess inventoryData = new InventoryDataAccess(sqlServerIpAddress);
-        Collection<InventoryItem> results = inventoryData.selectInventoryItems(itemType, msgString);
+        InventoryDataAccess inventory = new InventoryDataAccess(this.sqlServerIp, itemType);
+        Collection<InventoryItem> results = inventory.selectInventoryItems(itemType, msgString);
         String tableSelected = DataUtilities.GetTableDisplayName(itemType);
         if (results != null) {
             for (InventoryItem result : results) {

@@ -390,7 +390,7 @@ public class InventoryMainFrame extends javax.swing.JFrame {
             InventoryBusinessLogic inventory = new InventoryBusinessLogic(sqlServerIP);
 
             //Displaying results
-            jTextArea1.append(inventory.getInventoryItems(sqlServerIP, itemType));
+            jTextArea1.append(inventory.getInventoryItems(itemType));
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 

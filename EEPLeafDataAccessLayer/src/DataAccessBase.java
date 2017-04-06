@@ -18,10 +18,15 @@ public class DataAccessBase {
     private final String sqlServerUserName = "remote";
     private final String sqlServerPassword = "remote_pass";
     private String sqlServerIP;
-    protected String databaseName;
+    private String databaseName;
 
     public DataAccessBase() {
-
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            System.out.println("Driver loaded!");
+        } catch (ClassNotFoundException e) {
+            throw new IllegalStateException("Cannot find the driver in the classpath!", e);
+        }
     }
 
     /**
@@ -30,6 +35,7 @@ public class DataAccessBase {
      * @param databaseName
      */
     public DataAccessBase(String sqlServerIP, String databaseName) {
+        this();
         this.sqlServerIP = sqlServerIP;
         this.databaseName = databaseName;
     }
@@ -58,7 +64,7 @@ public class DataAccessBase {
             output.append("\n" + msgString);
 
             //define the data source
-            String sourceURL = "jdbc:mysql://" + sqlServerIP + ":3306/inventory";
+            String sourceURL = "jdbc:mysql://" + sqlServerIP + ":3306/" + this.databaseName;
 
             msgString = ">> Establishing connection with: " + sourceURL + "...";
             output.append("\n" + msgString);
@@ -73,7 +79,8 @@ public class DataAccessBase {
         log = output.toString();
         return DBConn;
     }
-        /**
+
+    /**
      * Creates a connection to the database
      *
      * @param log Used to output the messages
@@ -112,7 +119,7 @@ public class DataAccessBase {
         log = output.toString();
         return DBConn;
     }
-    
+
     protected Connection ConnectToOrderInfoDb(String log) {
         Connection DBConn = null;           // MySQL connection handle
         String errString = null;            // String for displaying errors
