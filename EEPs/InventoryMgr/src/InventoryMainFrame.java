@@ -280,12 +280,13 @@ public class InventoryMainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jRadioButton2ActionPerformed
     /**
      * Adds an item to the inventory
-     * @param evt 
+     *
+     * @param evt
      */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         boolean fieldError = false;
         jTextArea1.setText("");
-        
+
         // Check to make sure a radio button is selected
         if (!jRadioButton1.isSelected() && !jRadioButton2.isSelected() && !jRadioButton3.isSelected()) {
             fieldError = true;
@@ -349,10 +350,11 @@ public class InventoryMainFrame extends javax.swing.JFrame {
             inventory.addInventoryItem(item);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
-
+    //TODO: replace all other calls to inventory for display with just this one
     /**
      * Displays inventory items from the database
-     * @param evt 
+     *
+     * @param evt
      */
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         Boolean fieldError = true;
@@ -394,23 +396,16 @@ public class InventoryMainFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {
         // Deletes an item from the database
-
         int beginIndex;                     // Parsing index
         int endIndex;                       // Parsing index
         String productID = null;            // Product ID pnemonic
         Boolean IndexNotFound;              // Flag indicating a string index was not found.
-        Boolean connectError = false;       // Error flag
-        Connection DBConn = null;           // MySQL connection handle
         String errString = null;            // String for displaying errors
-        int executeUpdateVal;               // Return value from execute indicating effected rows
-        String msgString = null;            // String for displaying non-error messages
-        String tableSelected = null;        // String used to determine which data table to use
-        java.sql.Statement s = null;        // SQL statement pointer
-        String SQLstatement = null;         // String for building SQL queries
         String inventorySelection = null;   // Inventory text string selected by user
         IndexNotFound = false;              // Flag indicating that a string index was not found
+        String sqlServerIP = jTextField1.getText();
 
         // this is the selected line of text
         inventorySelection = jTextArea1.getSelectedText();
@@ -444,77 +439,33 @@ public class InventoryMainFrame extends javax.swing.JFrame {
                 jTextArea1.setText("");
                 jTextArea1.append("Deleting ProductID: " + productID);
 
-                // set up a connection to the LeafTech database
-                try {
-                    //load JDBC driver class for MySQL
-                    Class.forName("com.mysql.jdbc.Driver");
-
-                    //define the data source
-                    String SQLServerIP = jTextField1.getText();
-                    String sourceURL = "jdbc:mysql://" + SQLServerIP + ":3306/inventory";
-
-                    //create a connection to the db
-                    DBConn = DriverManager.getConnection(sourceURL, "remote", "remote_pass");
-
-                } catch (Exception e) {
-
-                    errString = "\nProblem connecting to database:: " + e;
+                // if trees inventory selected
+                ItemType itemType = null;
+                if (jRadioButton1.isSelected()) {
+                    itemType = ItemType.TREES;
+                } else if (jRadioButton2.isSelected()) {
+                    itemType = ItemType.SHRUBS;
+                } else if (jRadioButton3.isSelected()) {
+                    itemType = ItemType.SEEDS;
+                }
+                //TODO: complete items
+                Integer executeUpdateVal = null;
+                InventoryBusinessLogic inventory = new InventoryBusinessLogic(sqlServerIP);
+                executeUpdateVal = inventory.deleteInventoryItems(productID, itemType, errString);
+                if (executeUpdateVal > 0) {
+                    // let the user know all went well
+                    jTextArea1.append("\n\n" + productID + " deleted...");
+                    jTextArea1.append("\n Number of items deleted: " + executeUpdateVal);
+                } else {
+                    errString = "\nProblem with delete:: " + errString;
                     jTextArea1.append(errString);
-                    connectError = true;
-
-                } // end try-catch
-
-                //If there is no connection error, then we form the SQL statement
-                //to delete the inventory item and then execute it.
-                if (!connectError) {
-                    try {
-                        s = DBConn.createStatement();
-
-                        // if trees inventory selected
-                        if (jRadioButton1.isSelected()) {
-                            SQLstatement = ("DELETE FROM trees WHERE product_code = '" + productID + "';");
-                        }
-
-                        // if shrubs inventory selected
-                        if (jRadioButton2.isSelected()) {
-                            SQLstatement = ("DELETE FROM shrubs WHERE product_code = '" + productID + "';");
-                        }
-
-                        // if seeds inventory selected
-                        if (jRadioButton3.isSelected()) {
-                            SQLstatement = ("DELETE FROM seeds WHERE product_code = '" + productID + "';");
-                        }
-
-                        // execute the delete query
-                        executeUpdateVal = s.executeUpdate(SQLstatement);
-
-                        // let the user know all went well
-                        jTextArea1.append("\n\n" + productID + " deleted...");
-                        jTextArea1.append("\n Number of items deleted: " + executeUpdateVal);
-
-                    } catch (Exception e) {
-
-                        errString = "\nProblem with delete:: " + e;
-                        jTextArea1.append(errString);
-
-                    } // try
-
-                } // connection check    
-
-            } else {
-
-                jTextArea1.setText("");
-                jTextArea1.append("\nNo items selected...\nSELECT ENTIRE INVENTORY LINE TO ADD ITEM TO ORDER\n(TRIPLE CLICK ITEM LINE)");
-
+                }
             }
         } else {
-
             jTextArea1.setText("");
             jTextArea1.append("\nNo items selected...\nSELECT ENTIRE INVENTORY LINE TO ADD ITEM TO ORDER\n(TRIPLE CLICK ITEM LINE)");
-
-        } // Blank string check        
-
-    }//GEN-LAST:event_jButton3ActionPerformed
+        }
+    }
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // Decrements the inventory count for a selected item

@@ -1,3 +1,4 @@
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -120,6 +121,37 @@ public class InventoryDataAccess extends DataAccessBase {
             }
         }
         return result;
+    }
+
+    public int DeleteInventoryItem(String id, ItemType itemType, String log) {
+        StringBuilder output = new StringBuilder();
+        String logLine = null, sqlStatement = null;
+        Connection connection = this.ConnectToDb(logLine);
+        int executeUpdateVal;
+        
+        if (connection != null) {
+            Statement statement;
+            try {
+                statement = connection.createStatement();
+                sqlStatement = ("DELETE FROM " + DataUtilities.GetTableName(itemType) + " WHERE " + DataUtilities.GetIdColumnName(itemType) + " = '" + id + "';");
+                // execute the update
+                executeUpdateVal = statement.executeUpdate(sqlStatement);
+
+                // let the user know all went well
+                output.append("\n\n" + id + " deleted...");
+                output.append("\n Number of items deleted: " + executeUpdateVal);
+
+            } catch (Exception e) {
+                executeUpdateVal = -1;
+                logLine = "\nProblem adding inventory:: " + e;
+                output.append(logLine);
+            }
+        } else {
+            executeUpdateVal = -1;
+            output.append(logLine);
+        }
+        log= output.toString();
+        return executeUpdateVal;
     }
 
     public Collection<InventoryItem> SelectSeedsInventory(String log) {

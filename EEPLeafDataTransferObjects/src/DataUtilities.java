@@ -83,4 +83,22 @@ public class DataUtilities {
         }
         return databaseName;
     }
+    
+    public static String GetIdColumnName(ItemType itemType) {
+        String columnName = null;
+        switch (itemType) {
+            case CULTUREBOXES:
+            case GENOMICS:
+            case PROCESSING:
+            case REFERENCE_MATERIALS:
+                columnName = "productid";
+                break;
+            case SEEDS:
+            case SHRUBS:
+            case TREES:
+                columnName = "product_code";
+                break;
+        }
+        return columnName;
+    }
 }

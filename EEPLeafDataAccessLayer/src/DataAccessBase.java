@@ -25,7 +25,7 @@ public class DataAccessBase {
             Class.forName("com.mysql.jdbc.Driver");
             System.out.println("Driver loaded!");
         } catch (ClassNotFoundException e) {
-            throw new IllegalStateException("Cannot find the driver in the classpath!", e);
+            System.out.println("Cannot find driver in the classpath!");
         }
     }
 

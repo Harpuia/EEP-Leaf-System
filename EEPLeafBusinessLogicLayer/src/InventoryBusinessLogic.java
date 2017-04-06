@@ -43,4 +43,10 @@ public class InventoryBusinessLogic {
         }
     }
 
+    public int deleteInventoryItems(String id, ItemType itemType, String log) {
+        int executeUpdateValue;
+        InventoryDataAccess inventory = new InventoryDataAccess(this.sqlServerIp, itemType);
+        executeUpdateValue = inventory.DeleteInventoryItem(id, itemType, log);
+        return executeUpdateValue;
+    }
 }
