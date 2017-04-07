@@ -49,4 +49,11 @@ public class InventoryBusinessLogic {
         executeUpdateValue = inventory.deleteInventoryItem(id, itemType, log);
         return executeUpdateValue;
     }
+
+    public int decrementInventoryItem(String id, ItemType itemType, String log) {
+        int executeUpdateValue;
+        InventoryDataAccess inventory = new InventoryDataAccess(this.sqlServerIp, itemType);
+        executeUpdateValue = inventory.decrementInventoryItem(id, itemType, log);
+        return executeUpdateValue;
+    }
 }

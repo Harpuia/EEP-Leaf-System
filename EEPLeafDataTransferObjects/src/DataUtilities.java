@@ -101,4 +101,22 @@ public class DataUtilities {
         }
         return columnName;
     }
+    
+    public static String GetQuantityColumnName(ItemType itemType){
+        String columnName = null;
+        switch (itemType) {
+            case CULTUREBOXES:
+            case GENOMICS:
+            case PROCESSING:
+            case REFERENCE_MATERIALS:
+                columnName = "productquantity";
+                break;
+            case SEEDS:
+            case SHRUBS:
+            case TREES:
+                columnName = "quantity";
+                break;
+        }
+        return columnName;
+    }
 }

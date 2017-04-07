@@ -373,7 +373,7 @@ public class InventoryMainFrame extends javax.swing.JFrame {
                 itemType = ItemType.SHRUBS;
             }
             //TODO: Add the other options once UI coded
-            
+
         } else {
             msgString = "Must select Tree, Seeds, or Shrubs radio button.";
             jTextArea1.setText("\n" + msgString);
@@ -398,7 +398,8 @@ public class InventoryMainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
     /**
      * Deletes an inventory item
-     * @param evt 
+     *
+     * @param evt
      */
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {
         // Deletes an item from the database
@@ -453,7 +454,7 @@ public class InventoryMainFrame extends javax.swing.JFrame {
                     itemType = ItemType.SEEDS;
                 }
                 //TODO: complete items
-                
+
                 Integer executeUpdateVal = null;
                 InventoryBusinessLogic inventory = new InventoryBusinessLogic(sqlServerIP);
                 executeUpdateVal = inventory.deleteInventoryItem(productID, itemType, errString);
@@ -474,26 +475,19 @@ public class InventoryMainFrame extends javax.swing.JFrame {
 
     /**
      * Decrements the count of an inventory item
-     * @param evt 
+     *
+     * @param evt
      */
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // Decrements the inventory count for a selected item
         int beginIndex;                     // Parsing index
         int endIndex;                       // Parsing index
-        String productID = null;            // Product ID pnemonic
         Boolean IndexNotFound;              // Flag indicating a string index was not found.
-        Boolean connectError = false;       // Error flag
-        Connection DBConn = null;           // MySQL connection handle
-        String errString = null;            // String for displaying errors
-        int executeUpdateVal;               // Return value from execute indicating effected rows
-        String msgString = null;            // String for displaying non-error messages
-        ResultSet res = null;               // SQL query result set pointer
-        String tableSelected = null;        // String used to determine which data table to use
-        java.sql.Statement s = null;        // SQL statement pointer
-        String SQLstatement1 = null;        // String for building SQL queries
-        String SQLstatement2 = null;        // String for building SQL queries
         String inventorySelection = null;   // Inventory text string selected by user
         IndexNotFound = false;              // Flag indicating that a string index was not found
+        String productID = null;
+        String sqlServerIP = jTextField1.getText();
+        String log = null;
 
         // this is the selected line of text
         inventorySelection = jTextArea1.getSelectedText();
@@ -507,7 +501,7 @@ public class InventoryMainFrame extends javax.swing.JFrame {
             if (endIndex < 0) {
                 IndexNotFound = true;
             } else {
-                beginIndex = endIndex + 2; //skip past ">>"                                
+                beginIndex = endIndex + 2; //skip past ">>"
             }
 
             if (!IndexNotFound) {
@@ -524,72 +518,27 @@ public class InventoryMainFrame extends javax.swing.JFrame {
             // Now we decrement the inventory count of the item indicated by the productID we
             // parsed out above from the indicated table.
             if (!IndexNotFound) {
-                
 
                 //If there is no connection error, then we form the SQL statement
                 //to decrement the inventory item count and then execute it.
-                if (!connectError) {
-                    try {
-                        s = DBConn.createStatement();
+                ItemType itemType = null;
+                if (jRadioButton1.isSelected()) {
+                    itemType = ItemType.TREES;
+                } else if (jRadioButton2.isSelected()) {
+                    itemType = ItemType.SHRUBS;
+                } else if (jRadioButton3.isSelected()) {
+                    itemType = ItemType.SEEDS;
+                }
+                //TODO: add other options
 
-                        // if trees inventory selected
-                        if (jRadioButton1.isSelected()) {
-                            SQLstatement1 = ("UPDATE trees set quantity=(quantity-1) where product_code = '" + productID + "';");
-                            SQLstatement2 = ("SELECT * from trees where product_code = '" + productID + "';");
-                            tableSelected = "TREES";
-                        }
-
-                        // if strubs inventory selected
-                        if (jRadioButton2.isSelected()) {
-                            SQLstatement1 = ("UPDATE shrubs set quantity=(quantity-1) where product_code = '" + productID + "';");
-                            SQLstatement2 = ("SELECT * from shrubs where product_code = '" + productID + "';");
-                            tableSelected = "SHRUBS";
-                        }
-
-                        // if seeds inventory selected
-                        if (jRadioButton3.isSelected()) {
-                            SQLstatement1 = ("UPDATE seeds set quantity=(quantity-1) where product_code = '" + productID + "';");
-                            SQLstatement2 = ("SELECT * from seeds where product_code = '" + productID + "';");
-                            tableSelected = "SEEDS";
-                        }
-
-                        // execute the update, then query the BD for the table entry for the item just changed
-                        // and display it for the user
-                        executeUpdateVal = s.executeUpdate(SQLstatement1);
-                        res = s.executeQuery(SQLstatement2);
-
-                        jTextArea1.append("\n\n" + productID + " inventory decremented...");
-
-                        while (res.next()) {
-                            msgString = tableSelected + ">> " + res.getString(1) + " :: " + res.getString(2)
-                                    + " :: " + res.getString(3) + " :: " + res.getString(4);
-                            jTextArea1.append("\n" + msgString);
-
-                        } // while
-
-                        jTextArea1.append("\n\n Number of items updated: " + executeUpdateVal);
-
-                    } catch (Exception e) {
-
-                        errString = "\nProblem with delete:: " + e;
-                        jTextArea1.append(errString);
-
-                    } // try
-
-                } // connection check    
-
+                InventoryBusinessLogic inventory = new InventoryBusinessLogic(sqlServerIP);
+                inventory.decrementInventoryItem(productID, itemType, log);
+                jTextArea1.setText(log);
             } else {
-
                 jTextArea1.setText("");
                 jTextArea1.append("\nNo items selected...\nSELECT ENTIRE INVENTORY LINE TO ADD ITEM TO ORDER\n(TRIPLE CLICK ITEM LINE)");
-
             }
-        } else {
-
-            jTextArea1.setText("");
-            jTextArea1.append("\nNo items selected...\nSELECT ENTIRE INVENTORY LINE TO ADD ITEM TO ORDER\n(TRIPLE CLICK ITEM LINE)");
-
-        } // Blank string check
+        }
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed

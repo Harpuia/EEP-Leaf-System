@@ -103,7 +103,7 @@ public class InventoryDataAccess extends DataAccessBase {
         String logLine = null, sqlStatement = null;
         Connection connection = this.ConnectToDb(logLine);
         int executeUpdateVal;
-        
+
         if (connection != null) {
             Statement statement;
             try {
@@ -125,7 +125,47 @@ public class InventoryDataAccess extends DataAccessBase {
             executeUpdateVal = -1;
             output.append(logLine);
         }
-        log= output.toString();
+        log = output.toString();
+        return executeUpdateVal;
+    }
+
+    public int decrementInventoryItem(String productID, ItemType itemType, String log) {
+        StringBuilder output = new StringBuilder();
+        String logLine = null;
+        Connection connection = this.ConnectToDb(logLine);
+        int executeUpdateVal = -1;
+
+        if (connection != null) {
+            try {
+                Statement statement = connection.createStatement();
+
+                String SQLstatement1 = ("UPDATE " + DataUtilities.GetTableName(itemType) + " set " + DataUtilities.GetQuantityColumnName(itemType) + "=(" + DataUtilities.GetQuantityColumnName(itemType) + "-1) where " + DataUtilities.GetIdColumnName(itemType) + " = '" + productID + "';");
+                String SQLstatement2 = ("SELECT * from " + DataUtilities.GetTableName(itemType) + " where " + DataUtilities.GetIdColumnName(itemType) + " = '" + productID + "';");
+                String tableSelected = DataUtilities.GetTableDisplayName(itemType);
+
+                // execute the update, then query the BD for the table entry for the item just changed
+                // and display it for the user
+                executeUpdateVal = statement.executeUpdate(SQLstatement1);
+                ResultSet res = statement.executeQuery(SQLstatement2);
+
+                output.append("\n\n" + productID + " inventory decremented...");
+
+                while (res.next()) {
+                    logLine = tableSelected + ">> " + res.getString(1) + " :: " + res.getString(2)
+                            + " :: " + res.getString(3) + " :: " + res.getString(4);
+                    output.append("\n" + logLine);
+                }
+                output.append("\n\n Number of items updated: " + executeUpdateVal);
+            } catch (Exception e) {
+                executeUpdateVal = -1;
+                logLine = "\nProblem with update:: " + e;
+                output.append(logLine);
+            }
+        } else {
+            executeUpdateVal = -1;
+            output.append(logLine);
+        }
+        log = output.toString();
         return executeUpdateVal;
     }
 }
