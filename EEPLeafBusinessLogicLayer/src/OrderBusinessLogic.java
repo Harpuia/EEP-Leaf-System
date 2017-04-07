@@ -20,7 +20,7 @@ public class OrderBusinessLogic {
 
     public String GetInventoryItems(ItemType itemType) {
         StringBuilder result = new StringBuilder();
-        InventoryDataAccess inventory = new InventoryDataAccess(this.sqlServerIp);
+        InventoryDataAccess inventory = new InventoryDataAccess(this.sqlServerIp,itemType);
         String log = null;
         Collection<InventoryItem> trees = inventory.selectInventoryItems(itemType, log);
         if (trees != null) {
