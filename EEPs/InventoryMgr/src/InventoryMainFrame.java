@@ -1,3 +1,4 @@
+
 /**
  * ****************************************************************************
  * File:NewJFrame.java Course: 17655 Project: Assignment 2 Copyright: Copyright
@@ -117,12 +118,6 @@ public class InventoryMainFrame extends javax.swing.JFrame {
         jLabel5.setText("Product Description");
 
         jLabel6.setText("Database Server IP");
-
-        jTextField5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField5ActionPerformed(evt);
-            }
-        });
 
         jButton2.setText("List Inventory");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -301,13 +296,14 @@ public class InventoryMainFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    private boolean hasSelectedType(){
-        if (jRadioButton1.isSelected() || jRadioButton2.isSelected() || jRadioButton3.isSelected() || jRadioBtBox.isSelected() || jRadioBtGenomics.isSelected() || jRadioBtRefMaterial.isSelected() || jRadioBtProcess.isSelected()){
+    private boolean hasSelectedType() {
+        if (jRadioButton1.isSelected() || jRadioButton2.isSelected() || jRadioButton3.isSelected() || jRadioBtBox.isSelected() || jRadioBtGenomics.isSelected() || jRadioBtRefMaterial.isSelected() || jRadioBtProcess.isSelected()) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
+
     private ItemType getSelectedType() {
         ItemType type = null;
         if (jRadioButton1.isSelected()) {
@@ -339,25 +335,23 @@ public class InventoryMainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jRadioButton1ActionPerformed
 
     private void jRadioButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton3ActionPerformed
-        // TODO add your handling code here:
         jRadioButton1.setSelected(false);
         jRadioButton2.setSelected(false);
         jRadioButton3.setSelected(true);
         jRadioBtBox.setSelected(false);
         jRadioBtGenomics.setSelected(false);
         jRadioBtProcess.setSelected(false);
-        jRadioBtRefMaterial.setSelected(false);        
+        jRadioBtRefMaterial.setSelected(false);
     }//GEN-LAST:event_jRadioButton3ActionPerformed
 
     private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
-        // TODO add your handling code here:
         jRadioButton1.setSelected(false);
         jRadioButton2.setSelected(true);
         jRadioButton3.setSelected(false);
         jRadioBtBox.setSelected(false);
         jRadioBtGenomics.setSelected(false);
         jRadioBtProcess.setSelected(false);
-        jRadioBtRefMaterial.setSelected(false);        
+        jRadioBtRefMaterial.setSelected(false);
     }//GEN-LAST:event_jRadioButton2ActionPerformed
     /**
      * Adds an item to the inventory
@@ -368,18 +362,16 @@ public class InventoryMainFrame extends javax.swing.JFrame {
         boolean fieldError = false;
         jTextArea1.setText("");
 
-        // TODO: When you added a new type of product, Check to make sure a radio button is selected
+        //Check to make sure a radio button is selected
         if (!hasSelectedType()) {
             fieldError = true;
             jTextArea1.append("\nMust select Tree, Seeds, or Shrubs radio button.");
-
         } else {
 
             //Make sure there is a product description
             if (jTextField5.getText().length() == 0) {
                 fieldError = true;
                 jTextArea1.append("\nMust enter a product description.");
-
             } else {
 
                 //Make sure there is a product ID
@@ -387,13 +379,11 @@ public class InventoryMainFrame extends javax.swing.JFrame {
                     fieldError = true;
                     jTextArea1.append("\nMust enter a product ID.");
                 } else {
-
                     //Make sure there is a price
                     if (jTextField3.getText().length() == 0) {
                         fieldError = true;
                         jTextArea1.append("\nMust enter a product price.");
                     } else {
-
                         //Make sure quantity is specified
                         if (jTextField4.getText().length() == 0) {
                             fieldError = true;
@@ -414,18 +404,15 @@ public class InventoryMainFrame extends javax.swing.JFrame {
             float quantity = Float.parseFloat(jTextField4.getText());
             float perUnitCost = Float.parseFloat(jTextField3.getText());
             ItemType type = null;
-
             //Capturing item type
-            //TODO: Capture other types when UIs unified
             type = getSelectedType();
-
             //Creating InventoryItem object
             InventoryItem item = new InventoryItem(type, productID, description, quantity, perUnitCost);
             InventoryBusinessLogic inventory = new InventoryBusinessLogic(sqlServerIP);
             inventory.addInventoryItem(item);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
-    //TODO: replace all other calls to inventory for display with just this one
+
     /**
      * Displays inventory items from the database
      *
@@ -440,9 +427,7 @@ public class InventoryMainFrame extends javax.swing.JFrame {
         // Check to make sure a radio button is selected
         if (hasSelectedType()) {
             fieldError = false;
-            //TODO: Add the other options once UI coded
             itemType = getSelectedType();
-
         } else {
             msgString = "Must select one type via radio button, such as Trees, Shrubs, Processings.";
             jTextArea1.setText("\n" + msgString);
@@ -471,7 +456,6 @@ public class InventoryMainFrame extends javax.swing.JFrame {
      * @param evt
      */
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {
-        // Deletes an item from the database
         int beginIndex;                     // Parsing index
         int endIndex;                       // Parsing index
         String productID = null;            // Product ID pnemonic
@@ -516,8 +500,6 @@ public class InventoryMainFrame extends javax.swing.JFrame {
                 // if trees inventory selected
                 ItemType itemType = null;
                 itemType = getSelectedType();
-                //TODO: complete items
-
                 Integer executeUpdateVal = null;
                 InventoryBusinessLogic inventory = new InventoryBusinessLogic(sqlServerIP);
                 executeUpdateVal = inventory.deleteInventoryItem(productID, itemType, errString);
@@ -542,7 +524,6 @@ public class InventoryMainFrame extends javax.swing.JFrame {
      * @param evt
      */
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // Decrements the inventory count for a selected item
         int beginIndex;                     // Parsing index
         int endIndex;                       // Parsing index
         Boolean IndexNotFound;              // Flag indicating a string index was not found.
@@ -581,13 +562,10 @@ public class InventoryMainFrame extends javax.swing.JFrame {
             // Now we decrement the inventory count of the item indicated by the productID we
             // parsed out above from the indicated table.
             if (!IndexNotFound) {
-
                 //If there is no connection error, then we form the SQL statement
                 //to decrement the inventory item count and then execute it.
                 ItemType itemType = null;
                 itemType = getSelectedType();
-                //TODO: add other options
-
                 InventoryBusinessLogic inventory = new InventoryBusinessLogic(sqlServerIP);
                 inventory.decrementInventoryItem(productID, itemType, log);
                 jTextArea1.setText(log);
@@ -597,13 +575,12 @@ public class InventoryMainFrame extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_jButton4ActionPerformed
-
-    private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField5ActionPerformed
-
+    /**
+     * Set selected to correspond type radio button
+     *
+     * @param evt
+     */
     private void jRadioButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton4ActionPerformed
-        // TODO add your handling code here:
         jRadioBtBox.setSelected(true);
         jRadioBtGenomics.setSelected(false);
         jRadioBtProcess.setSelected(false);
@@ -612,7 +589,7 @@ public class InventoryMainFrame extends javax.swing.JFrame {
         jRadioButton2.setSelected(false);
         jRadioButton3.setSelected(false);
     }//GEN-LAST:event_jRadioButton4ActionPerformed
-
+    //Set selected to correspond type radio button
     private void jRadioButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton5ActionPerformed
         jRadioBtBox.setSelected(false);
         jRadioBtGenomics.setSelected(true);
@@ -622,7 +599,7 @@ public class InventoryMainFrame extends javax.swing.JFrame {
         jRadioButton2.setSelected(false);
         jRadioButton3.setSelected(false);
     }//GEN-LAST:event_jRadioButton5ActionPerformed
-
+    //Set selected to correspond type radio button
     private void jRadioBtRefMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioBtRefMaterialActionPerformed
         jRadioBtBox.setSelected(false);
         jRadioBtGenomics.setSelected(false);
@@ -632,7 +609,7 @@ public class InventoryMainFrame extends javax.swing.JFrame {
         jRadioButton2.setSelected(false);
         jRadioButton3.setSelected(false);
     }//GEN-LAST:event_jRadioBtRefMaterialActionPerformed
-
+    //Set selected to correspond type radio button
     private void jRadioBtProcessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioBtProcessActionPerformed
         jRadioBtBox.setSelected(false);
         jRadioBtGenomics.setSelected(false);
@@ -644,6 +621,8 @@ public class InventoryMainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jRadioBtProcessActionPerformed
 
     /**
+     * main entry of the application
+     *
      * @param args the command line arguments
      */
     public static void main(String args[]) {
