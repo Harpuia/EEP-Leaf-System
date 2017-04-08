@@ -16,3 +16,11 @@ hs_err_pid*
 *.xml
 *.properties
 *.netbeans_*
+/EEPLeafBusinessLogicLayer/nbproject/private/
+/EEPLeafDataTransferObjects/nbproject/private/
+/EEPLeafBusinessLogicLayer/build/
+/EEPLeafDataAccessLayer/build/
+/EEPLeafDataTransferObjects/build/
+/EEPLeafDataTransferObjects/dist/
+/EEPLeafDataAccessLayer/dist/
+/EEPLeafBusinessLogicLayer/dist/

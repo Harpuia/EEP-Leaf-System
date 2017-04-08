@@ -1,8 +1,3 @@
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-
 /**
  * ****************************************************************************
  * File:NewJFrame.java Course: 17655 Project: Assignment 2 Copyright: Copyright
