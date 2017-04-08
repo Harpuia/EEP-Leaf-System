@@ -1,8 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * ****************************************************************************
+ *
+ * This class defines the information for an inventory item.
+ *
+ *****************************************************************************
  */
+/**
 
 /**
  *
@@ -16,6 +19,9 @@ public class InventoryItem {
     public float quantity;
     public float price;
 
+     /**
+     * This constructor initiates the properties of a specific item type.
+     */
     public InventoryItem(ItemType type, String productCode, String description, float quantity, float price) {
         this.type = type;
         this.productCode = productCode;
@@ -23,7 +29,9 @@ public class InventoryItem {
         this.quantity = quantity;
         this.price = price;
     }
-
+     /**
+     * This constructor initiates the properties of a specific item type with different variable type.
+     */
     public InventoryItem(ItemType type, String productCode, String description, String quantity, String price) {
         this.type = type;
         this.productCode = productCode;
