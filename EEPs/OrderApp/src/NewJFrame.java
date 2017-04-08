@@ -4,18 +4,15 @@ import java.util.Calendar;
 
 /**
  * ****************************************************************************
- * File:NewJFrame.java Course: 17655 Project: Assignment 2 Copyright: Copyright
- * (c) 2009 Carnegie Mellon University Versions: 1.0 November 2009 - Initial
- * rewrite of original assignment 2 (ajl).
  *
- * This class defines a GUI application that allows EEP order takers to enter
+ * This class defines a GUI application that allows EEP and LeafTech order takers to enter
  * phone orders into the database.
  *
  *****************************************************************************
  */
 /**
  *
- * @author lattanze
+ * @author rachel
  */
 public class NewJFrame extends javax.swing.JFrame {
     
@@ -347,7 +344,7 @@ public class NewJFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
+        // This button gets the tree information from the database and display in text area.
         String sqlServerIP = jTextField1.getText();
         OrderBusinessLogic orderBL = new OrderBusinessLogic(sqlServerIP);
         jTextArea1.setText(orderBL.GetInventoryItems(ItemType.TREES));
@@ -490,28 +487,29 @@ public class NewJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO add your handling code here:
+        // This button gets the CULTUREBOXES information from the leaftech database and display it in jTextArea1.
+        
         String sqlServerIP = jTextField1.getText();
         OrderBusinessLogic orderBL = new OrderBusinessLogic(sqlServerIP);
         jTextArea1.setText(orderBL.GetInventoryItems(ItemType.CULTUREBOXES));
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        // TODO add your handling code here:
+        // This button gets the GENOMICS information from the leaftech database and display it in jTextArea1.
         String sqlServerIP = jTextField1.getText();
         OrderBusinessLogic orderBL = new OrderBusinessLogic(sqlServerIP);
         jTextArea1.setText(orderBL.GetInventoryItems(ItemType.GENOMICS));
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        // TODO add your handling code here:
+        // This button gets the PROCESSING information from the leaftech database and display it in jTextArea1.
         String sqlServerIP = jTextField1.getText();
         OrderBusinessLogic orderBL = new OrderBusinessLogic(sqlServerIP);
         jTextArea1.setText(orderBL.GetInventoryItems(ItemType.PROCESSING));
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        // TODO add your handling code here:
+        // This button gets the REFERENCE_MATERIALS information from the leaftech database and display it in jTextArea1.
         String sqlServerIP = jTextField1.getText();
         OrderBusinessLogic orderBL = new OrderBusinessLogic(sqlServerIP);
         jTextArea1.setText(orderBL.GetInventoryItems(ItemType.REFERENCE_MATERIALS));
