@@ -1,3 +1,4 @@
+
 /**
  * ****************************************************************************
  *
@@ -6,7 +7,7 @@
  *****************************************************************************
  */
 /**
-/**
+ * /**
  *
  * @author yazid
  */
@@ -14,6 +15,8 @@ public class DataUtilities {
 
     /**
      * Retrieve the table name for the specified item type.
+     *
+     * @param itemType
      */
     public static String GetTableName(ItemType itemType) {
         String name = null;
@@ -42,8 +45,11 @@ public class DataUtilities {
         }
         return name;
     }
+
     /**
      * Retrieve the displayed table name for the specified item type.
+     *
+     * @param itemType
      */
     public static String GetTableDisplayName(ItemType itemType) {
         String name = null;
@@ -75,6 +81,8 @@ public class DataUtilities {
 
     /**
      * Retrieve the database name for the specified item type.
+     *
+     * @param itemType
      */
     public static String GetDatabaseName(ItemType itemType) {
         String databaseName = null;
@@ -93,9 +101,11 @@ public class DataUtilities {
         }
         return databaseName;
     }
-    
+
     /**
      * Retrieve the column name for the specified item type.
+     *
+     * @param itemType
      */
     public static String GetIdColumnName(ItemType itemType) {
         String columnName = null;
@@ -114,10 +124,13 @@ public class DataUtilities {
         }
         return columnName;
     }
+
     /**
      * Retrieve the quantity column name for the specified item type.
+     *
+     * @param itemType
      */
-    public static String GetQuantityColumnName(ItemType itemType){
+    public static String GetQuantityColumnName(ItemType itemType) {
         String columnName = null;
         switch (itemType) {
             case CULTUREBOXES:
