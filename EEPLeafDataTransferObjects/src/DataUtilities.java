@@ -1,15 +1,20 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * ****************************************************************************
+ *
+ * This class defines the information of a specific item type..
+ *
+ *****************************************************************************
  */
-
+/**
 /**
  *
  * @author yazid
  */
 public class DataUtilities {
 
+    /**
+     * Retrieve the table name for the specified item type.
+     */
     public static String GetTableName(ItemType itemType) {
         String name = null;
         switch (itemType) {
@@ -37,7 +42,9 @@ public class DataUtilities {
         }
         return name;
     }
-
+    /**
+     * Retrieve the displayed table name for the specified item type.
+     */
     public static String GetTableDisplayName(ItemType itemType) {
         String name = null;
         switch (itemType) {
@@ -66,6 +73,9 @@ public class DataUtilities {
         return name;
     }
 
+    /**
+     * Retrieve the database name for the specified item type.
+     */
     public static String GetDatabaseName(ItemType itemType) {
         String databaseName = null;
         switch (itemType) {
@@ -84,6 +94,9 @@ public class DataUtilities {
         return databaseName;
     }
     
+    /**
+     * Retrieve the column name for the specified item type.
+     */
     public static String GetIdColumnName(ItemType itemType) {
         String columnName = null;
         switch (itemType) {
@@ -101,7 +114,9 @@ public class DataUtilities {
         }
         return columnName;
     }
-    
+    /**
+     * Retrieve the quantity column name for the specified item type.
+     */
     public static String GetQuantityColumnName(ItemType itemType){
         String columnName = null;
         switch (itemType) {
