@@ -11,13 +11,13 @@ import java.util.Collection;
  * @author yazid
  */
 public class InventoryBusinessLogic {
-
+    
     private String sqlServerIp;
-
+    /** Constructor **/
     public InventoryBusinessLogic(String sqlServerIp) {
         this.sqlServerIp = sqlServerIp;
     }
-
+    
     public String addInventoryItem(InventoryItem item) {
         String log;
         InventoryDataAccess inventory = new InventoryDataAccess(this.sqlServerIp, item.type);
@@ -42,14 +42,26 @@ public class InventoryBusinessLogic {
             return msgString;
         }
     }
-
+    /**
+     * Delete inventory item, identified by id and item type
+     * @param id
+     * @param itemType
+     * @param log
+     * @return 
+     */
     public int deleteInventoryItem(String id, ItemType itemType, String log) {
         int executeUpdateValue;
         InventoryDataAccess inventory = new InventoryDataAccess(this.sqlServerIp, itemType);
         executeUpdateValue = inventory.deleteInventoryItem(id, itemType, log);
         return executeUpdateValue;
     }
-
+    /**
+     * Decrement inventory item, identified by id and item type
+     * @param id
+     * @param itemType
+     * @param log
+     * @return 
+     */
     public int decrementInventoryItem(String id, ItemType itemType, String log) {
         int executeUpdateValue;
         InventoryDataAccess inventory = new InventoryDataAccess(this.sqlServerIp, itemType);
