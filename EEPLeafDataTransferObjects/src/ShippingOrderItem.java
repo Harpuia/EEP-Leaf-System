@@ -1,3 +1,4 @@
+
 /**
  * ****************************************************************************
  *
@@ -10,6 +11,7 @@
  * @author Jiawei Li
  */
 public class ShippingOrderItem {
+
     public int itemId;
     public String productId;
     public String description;
@@ -17,6 +19,11 @@ public class ShippingOrderItem {
 
     /**
      * This constructor initiates the properties of a specific order.
+     *
+     * @param itemId
+     * @param productId
+     * @param description
+     * @param itemPrice
      */
     public ShippingOrderItem(int itemId, String productId, String description, double itemPrice) {
         this.itemId = itemId;
@@ -24,9 +31,15 @@ public class ShippingOrderItem {
         this.description = description;
         this.itemPrice = itemPrice;
     }
-    
+
     /**
-     * This constructor initiates the properties of a specific order with different varia types.
+     * This constructor initiates the properties of a specific order with
+     * different varia types.
+     *
+     * @param itemId
+     * @param productId
+     * @param description
+     * @param itemPrice
      */
     public ShippingOrderItem(String itemId, String productId, String description, String itemPrice) {
         this.itemId = Integer.valueOf(itemId);
@@ -35,10 +48,14 @@ public class ShippingOrderItem {
         this.itemPrice = Double.valueOf(itemPrice);
     }
 
+    /**
+     * Format the output.
+     *
+     * @return
+     */
     @Override
     public String toString() {
         return itemId + ": PRODUCT ID: " + productId + "  DESCRIPTION: " + description + "  PRICE $" + itemPrice;
     }
-    
-    
+
 }
