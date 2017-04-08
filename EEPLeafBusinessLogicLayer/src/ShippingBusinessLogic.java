@@ -25,7 +25,11 @@ public class ShippingBusinessLogic {
         List<ShippingOrder> orders = getShippingOrders(true);
         return buildOutputFromCollection(orders);
     }
-    
+    /**
+     * Build string output for shipping application
+     * @param orders
+     * @return 
+     */
     public String buildOutputFromCollection(Collection<ShippingOrder> orders){
         if (orders != null) {
             StringBuilder result = new StringBuilder();
@@ -37,7 +41,11 @@ public class ShippingBusinessLogic {
             return null;
         }
     }
-    
+    /**
+     * get shipping orders filtered by shipping status
+     * @param hasShipped
+     * @return 
+     */
     private List<ShippingOrder> getShippingOrders(boolean hasShipped){
         //StringBuilder result = new StringBuilder();
         ShippingDataAccess shippingOrder = new ShippingDataAccess(this.sqlServerIp);
@@ -45,14 +53,23 @@ public class ShippingBusinessLogic {
         List<ShippingOrder> orders = shippingOrder.selectShippingOrderByShippingStatus(hasShipped,log);
         return orders;
     }
-    
+    /**
+     * Get order information filtered by order ID
+     * @param orderId
+     * @return 
+     */
     public ShippingOrder getOrderInfoByOrderId(String orderId){
         ShippingDataAccess shippingOrder = new ShippingDataAccess(this.sqlServerIp);
         String log = null;
         ShippingOrder order = shippingOrder.selectShippingOrderByOrderId(orderId, log);
         return order;
     }
-    
+    /**
+     * Get order items via providing the order table name 
+     * and convert the result to preferred output string format
+     * @param tableName
+     * @return 
+     */
     public String getOrderItemsByTableName(String tableName){
         ShippingDataAccess shippingOrder = new ShippingDataAccess(this.sqlServerIp);
         String log = null;
@@ -67,7 +84,11 @@ public class ShippingBusinessLogic {
             return null;
         }
     }
-    
+    /**
+     * update an order's shipping status to shipped, identified by order ID
+     * @param orderId
+     * @return 
+     */
     public boolean updateOrderShippedByOrderId(String orderId){
         ShippingDataAccess shippingOrder = new ShippingDataAccess(this.sqlServerIp);
         String log = null;

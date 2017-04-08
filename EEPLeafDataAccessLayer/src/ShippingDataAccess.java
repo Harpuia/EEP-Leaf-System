@@ -7,16 +7,19 @@ import java.util.Collection;
 import java.util.List;
 
 /**
+ * This class is used to access orderinfo database and get order shipping
+ * information
  *
  * @author Jiawei Li
  */
-public class ShippingDataAccess extends DataAccessBase{
-    /** Constructor **/
-    public ShippingDataAccess(String sqlServerIP){
+public class ShippingDataAccess extends DataAccessBase {
+
+   /** Constructor **/
+    public ShippingDataAccess(String sqlServerIP) {
         super(sqlServerIP, "orderinfo");
     }
 
-    public List<ShippingOrder> selectShippingOrder(String log){
+    public List<ShippingOrder> selectShippingOrder(String log) {
         log = null;
         List<ShippingOrder> result = new ArrayList<ShippingOrder>();
         ShippingOrder item;
@@ -28,8 +31,8 @@ public class ShippingDataAccess extends DataAccessBase{
 
                 //Display the data in the textarea
                 while (queryResult.next()) {
-                    item = new ShippingOrder(queryResult.getString(1), queryResult.getString(2), queryResult.getString(3), queryResult.getString(4), 
-                            queryResult.getString(5),queryResult.getString(6),queryResult.getString(7),queryResult.getString(8),queryResult.getString(9));
+                    item = new ShippingOrder(queryResult.getString(1), queryResult.getString(2), queryResult.getString(3), queryResult.getString(4),
+                            queryResult.getString(5), queryResult.getString(6), queryResult.getString(7), queryResult.getString(8), queryResult.getString(9));
                     result.add(item);
                 }
                 return (result);
@@ -41,25 +44,33 @@ public class ShippingDataAccess extends DataAccessBase{
             return null;
         }
     }
-    public List<ShippingOrder> selectShippingOrderByShippingStatus(boolean shipped,String log){
+
+    /**
+     * Get shipping orders, filtered by shipping status
+     *
+     * @param shipped
+     * @param log
+     * @return
+     */
+    public List<ShippingOrder> selectShippingOrderByShippingStatus(boolean shipped, String log) {
         log = null;
         List<ShippingOrder> result = new ArrayList<ShippingOrder>();
         ShippingOrder item;
-        Connection connection = this.ConnectToDb(true,log);
+        Connection connection = this.ConnectToDb(true, log);
         if (connection != null) {
             try {
                 Statement statement = connection.createStatement();
                 ResultSet queryResult;
-                if(shipped){
+                if (shipped) {
                     queryResult = statement.executeQuery("Select * from orders where shipped = 1");
-                }else{
+                } else {
                     queryResult = statement.executeQuery("Select * from orders where shipped != 1");
                 }
-                
+
                 //Display the data in the textarea
                 while (queryResult.next()) {
-                    item = new ShippingOrder(queryResult.getString(1), queryResult.getString(2), queryResult.getString(3), queryResult.getString(4), 
-                            queryResult.getString(5),queryResult.getString(6),queryResult.getString(7),queryResult.getString(8), queryResult.getString(9));
+                    item = new ShippingOrder(queryResult.getString(1), queryResult.getString(2), queryResult.getString(3), queryResult.getString(4),
+                            queryResult.getString(5), queryResult.getString(6), queryResult.getString(7), queryResult.getString(8), queryResult.getString(9));
                     result.add(item);
                 }
                 return (result);
@@ -71,12 +82,17 @@ public class ShippingDataAccess extends DataAccessBase{
             return null;
         }
     }
-    
-    public ShippingOrder selectShippingOrderByOrderId(String orderId,String log){
+    /**
+     * Query a specific shipping order identified by order ID
+     * @param orderId
+     * @param log
+     * @return 
+     */
+    public ShippingOrder selectShippingOrderByOrderId(String orderId, String log) {
         log = null;
         List<ShippingOrder> result = new ArrayList<ShippingOrder>();
         ShippingOrder item;
-        Connection connection = this.ConnectToDb(true,log);
+        Connection connection = this.ConnectToDb(true, log);
         if (connection != null) {
             try {
                 Statement statement = connection.createStatement();
@@ -84,8 +100,8 @@ public class ShippingDataAccess extends DataAccessBase{
                 queryResult = statement.executeQuery("Select * from orders where order_id = " + Integer.parseInt(orderId));
                 //Display the data in the textarea
                 while (queryResult.next()) {
-                    item = new ShippingOrder(queryResult.getString(1), queryResult.getString(2), queryResult.getString(3), queryResult.getString(4), 
-                            queryResult.getString(5),queryResult.getString(6),queryResult.getString(7),queryResult.getString(8), queryResult.getString(9));
+                    item = new ShippingOrder(queryResult.getString(1), queryResult.getString(2), queryResult.getString(3), queryResult.getString(4),
+                            queryResult.getString(5), queryResult.getString(6), queryResult.getString(7), queryResult.getString(8), queryResult.getString(9));
                     result.add(item);
                 }
                 return result.get(0);
@@ -97,20 +113,25 @@ public class ShippingDataAccess extends DataAccessBase{
             return null;
         }
     }
-    
-    public List<ShippingOrderItem> selectShippingOrderItemsByTableName(String tableName,String log){
+
+    /**
+     * Get shipping order items, identified by order table item
+     *
+     * @param tableName
+     * @param log
+     * @return
+     */
+    public List<ShippingOrderItem> selectShippingOrderItemsByTableName(String tableName, String log) {
         log = null;
         List<ShippingOrderItem> result = new ArrayList<ShippingOrderItem>();
         ShippingOrderItem item;
-        Connection connection = this.ConnectToDb(true,log);
+        Connection connection = this.ConnectToDb(true, log);
         if (connection != null) {
             try {
                 Statement statement = connection.createStatement();
                 ResultSet queryResult;
                 queryResult = statement.executeQuery("Select * from  " + tableName);
 
-                
-                //Display the data in the textarea
                 while (queryResult.next()) {
                     item = new ShippingOrderItem(queryResult.getString(1), queryResult.getString(2), queryResult.getString(3), queryResult.getString(4));
                     result.add(item);
@@ -124,21 +145,26 @@ public class ShippingDataAccess extends DataAccessBase{
             return null;
         }
     }
-    
-    public boolean updateOrderShippedByOrderId(String orderId,String log){
+    /**
+     * Update order status to shipped
+     * @param orderId
+     * @param log
+     * @return 
+     */
+    public boolean updateOrderShippedByOrderId(String orderId, String log) {
         log = null;
         List<ShippingOrderItem> result = new ArrayList<ShippingOrderItem>();
         ShippingOrderItem item;
-        Connection connection = this.ConnectToDb(true,log);
+        Connection connection = this.ConnectToDb(true, log);
         if (connection != null) {
             try {
                 Statement statement = connection.createStatement();
                 ResultSet queryResult;
                 String SQLStatement = "UPDATE orders SET shipped=" + true + " WHERE order_id=" + orderId;
-                int rows = statement.executeUpdate( SQLStatement );
-                if(rows > 0){
+                int rows = statement.executeUpdate(SQLStatement);
+                if (rows > 0) {
                     return true;
-                }else{
+                } else {
                     return false;
                 }
             } catch (Exception e) {
