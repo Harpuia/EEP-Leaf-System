@@ -1,6 +1,12 @@
+/**
+ * ****************************************************************************
+ *
+ * This class defines a DTO for conveying information of items in an order.
+ *
+ *****************************************************************************
+ */
 
 /**
- * DTO for conveying information of items in an order
  * @author Jiawei Li
  */
 public class ShippingOrderItem {
@@ -9,6 +15,9 @@ public class ShippingOrderItem {
     public String description;
     public double itemPrice;
 
+    /**
+     * This constructor initiates the properties of a specific order.
+     */
     public ShippingOrderItem(int itemId, String productId, String description, double itemPrice) {
         this.itemId = itemId;
         this.productId = productId;
@@ -16,7 +25,9 @@ public class ShippingOrderItem {
         this.itemPrice = itemPrice;
     }
     
-    
+    /**
+     * This constructor initiates the properties of a specific order with different varia types.
+     */
     public ShippingOrderItem(String itemId, String productId, String description, String itemPrice) {
         this.itemId = Integer.valueOf(itemId);
         this.productId = productId;
