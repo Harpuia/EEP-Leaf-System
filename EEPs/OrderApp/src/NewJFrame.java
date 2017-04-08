@@ -5,8 +5,8 @@ import java.util.Calendar;
 /**
  * ****************************************************************************
  *
- * This class defines a GUI application that allows EEP and LeafTech order takers to enter
- * phone orders into the database.
+ * This class defines a GUI application that allows EEP and LeafTech order
+ * takers to enter phone orders into the database.
  *
  *****************************************************************************
  */
@@ -15,7 +15,7 @@ import java.util.Calendar;
  * @author rachel
  */
 public class NewJFrame extends javax.swing.JFrame {
-    
+
     String versionID = "v2.10.10";
 
     /**
@@ -382,7 +382,7 @@ public class NewJFrame extends javax.swing.JFrame {
             } else {
                 productID = inventorySelection.substring(beginIndex, endIndex);
             }
-            
+
             if (!IndexNotFound) {
                 // get the product description
                 beginIndex = endIndex + 3; //skip over " : "
@@ -391,7 +391,7 @@ public class NewJFrame extends javax.swing.JFrame {
                     IndexNotFound = true;
                 } else {
                     productDescription = inventorySelection.substring(beginIndex, endIndex);
-                }                
+                }
             }
 
             // get the string cost value
@@ -419,12 +419,12 @@ public class NewJFrame extends javax.swing.JFrame {
                 sTotalCost = sTotalCost.substring(beginIndex, sTotalCost.length());
                 fCost = Float.parseFloat(sTotalCost) + Float.parseFloat(sCost);
                 jTextField6.setText("$" + fCost.toString());
-                
+
             } else {
-                jTextArea3.setText("\nNo items selected...\nSELECT ENTIRE INVENTORY LINE TO ADD ITEM TO ORDER\n(TRIPLE CLICK ITEM LINE)");                
+                jTextArea3.setText("\nNo items selected...\nSELECT ENTIRE INVENTORY LINE TO ADD ITEM TO ORDER\n(TRIPLE CLICK ITEM LINE)");
             }
         } else {
-            jTextArea3.setText("\nNo items selected...\nSELECT ENTIRE INVENTORY LINE TO ADD ITEM TO ORDER\n(TRIPLE CLICK ITEM LINE)");            
+            jTextArea3.setText("\nNo items selected...\nSELECT ENTIRE INVENTORY LINE TO ADD ITEM TO ORDER\n(TRIPLE CLICK ITEM LINE)");
         } // Blank string check
     }//GEN-LAST:event_jButton4ActionPerformed
 
@@ -451,9 +451,9 @@ public class NewJFrame extends javax.swing.JFrame {
             jTextField4.setText("");
             jTextField5.setText("");
             jTextField6.setText("$0");
+        } else {
+            jTextArea3.setText(result);
         }
-        else
-        jTextArea3.setText(result);
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
@@ -488,7 +488,7 @@ public class NewJFrame extends javax.swing.JFrame {
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // This button gets the CULTUREBOXES information from the leaftech database and display it in jTextArea1.
-        
+
         String sqlServerIP = jTextField1.getText();
         OrderBusinessLogic orderBL = new OrderBusinessLogic(sqlServerIP);
         jTextArea1.setText(orderBL.GetInventoryItems(ItemType.CULTUREBOXES));
