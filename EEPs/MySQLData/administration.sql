@@ -24,12 +24,10 @@ unlock tables;
 drop table if exists `log`;
 
 CREATE TABLE log (
+    activity VARCHAR(25) DEFAULT NULL,
     username VARCHAR(25) DEFAULT NULL,
-    title VARCHAR(255) DEFAULT NULL,
+    password VARCHAR(25) DEFAULT NULL,
+    is_success BOOL NOT NULL DEFAULT 0,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     changed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
-
-lock tables `log` write;
-insert into log(username)
-    values('administrator');

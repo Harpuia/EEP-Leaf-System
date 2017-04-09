@@ -36,6 +36,14 @@ public class LoginInfo {
         return this.username.equals(username) && this.pwd.equals(pwd);
     }
     
+    public String getUsername() {
+        return username;
+    }
+    
+    public String getPassword() {
+        return pwd;
+    }
+    
     public boolean getIsLoggedIn() {
         return isLoggedIn;
     }

@@ -42,6 +42,8 @@ public class DataUtilities {
             case TREES:
                 name = "trees";
                 break;
+            default:
+                break;
         }
         return name;
     }
@@ -75,6 +77,8 @@ public class DataUtilities {
             case TREES:
                 name = "TREES";
                 break;
+            default:
+                break;
         }
         return name;
     }
@@ -97,6 +101,8 @@ public class DataUtilities {
             case SHRUBS:
             case TREES:
                 databaseName = "inventory";
+                break;
+            default:
                 break;
         }
         return databaseName;
@@ -121,6 +127,8 @@ public class DataUtilities {
             case TREES:
                 columnName = "product_code";
                 break;
+            default:
+                break;
         }
         return columnName;
     }
@@ -143,6 +151,8 @@ public class DataUtilities {
             case SHRUBS:
             case TREES:
                 columnName = "quantity";
+                break;
+            default:
                 break;
         }
         return columnName;

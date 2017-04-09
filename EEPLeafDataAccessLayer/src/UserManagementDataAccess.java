@@ -16,7 +16,7 @@ public class UserManagementDataAccess extends DataAccessBase{
         super(sqlServerIP, "administration");
     }
 
-    public LoginInfo selectLoginInfoByUsername(String log, String username, String password) {
+    public LoginInfo selectLoginInfoByUsername(String username, String password, String log) {
         log = null;
         List<LoginInfo> result = new ArrayList<>();
         LoginInfo item;
@@ -38,6 +38,30 @@ public class UserManagementDataAccess extends DataAccessBase{
             }
         } else {
             return null;
+        }
+    }
+    
+    public boolean insertLogItem(LogItem item, String log) {
+        String sqlStatement = null;
+        Connection connection = this.ConnectToDb(log);
+        if (connection != null) {
+            Statement statement;
+            try {
+                statement = connection.createStatement();
+                sqlStatement = ("INSERT INTO log" + " (activity, "
+                            + "username, password, is_success) VALUES ( '"
+                            + item.getActivity() + "', " + "'" + item.getUsername() + "', '"
+                            + item.getPassword() + "', " + item.getSuccess() + ");");
+                // execute the update
+                statement.executeUpdate(sqlStatement);
+                return true;
+            } catch (Exception e) {
+                log = "\nProblem adding inventory:: " + e;
+                return false;
+            }
+        } else {
+            log = ("Connection fails...");
+            return false;
         }
     }
 }
