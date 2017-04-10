@@ -27,3 +27,5 @@ hs_err_pid*
 /EEPs/InventoryMgr/dist/
 /LoginWindow/build/
 /LoginWindow/dist/
+/LoginLibraryOld/build/
+/LoginLibraryOld/dist/
