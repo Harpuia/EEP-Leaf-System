@@ -24,3 +24,8 @@ hs_err_pid*
 /EEPLeafDataTransferObjects/dist/
 /EEPLeafDataAccessLayer/dist/
 /EEPLeafBusinessLogicLayer/dist/
+/EEPs/InventoryMgr/dist/
+/LoginWindow/build/
+/LoginWindow/dist/
+/LoginLibraryOld/build/
+/LoginLibraryOld/dist/

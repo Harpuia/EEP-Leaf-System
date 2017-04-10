@@ -15,10 +15,10 @@ import java.sql.*;
 /*
  * Created on Feb 4, 2010, 7:40:03 PM
  *
- * @author lattanze
+ * @author Jiawei Li
  */
 public class NewJFrame extends javax.swing.JFrame {
-
+    private LoginWindow loginWindow;
     Integer updateOrderID;
     String versionID = "v2.10.10";
 
@@ -28,6 +28,16 @@ public class NewJFrame extends javax.swing.JFrame {
     public NewJFrame() {
         initComponents();
         jLabel1.setText("Shipping Application " + versionID);
+        
+        loginWindow = new LoginWindow(this);
+        loginWindow.setVisible(true);
+        loginWindow.setModal(true);
+        
+        if(loginWindow.isSucceeded()) {
+            setVisible(true);
+        } else {
+            System.exit(1);
+        }
     }
 
     /**
@@ -69,6 +79,11 @@ public class NewJFrame extends javax.swing.JFrame {
         jTextField5 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jLabel1.setText("Shipping Application");
 
@@ -353,6 +368,15 @@ public class NewJFrame extends javax.swing.JFrame {
         getShippedOrders();
     }//GEN-LAST:event_jButton4ActionPerformed
 
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        String log = null;
+        UserManagementBusinessLogic userBL = loginWindow.userBL;
+        boolean response = userBL.logout(log);
+        if(response == false) {
+            System.out.println(log);
+        }
+    }//GEN-LAST:event_formWindowClosing
+
     /**
      * This method will invoke querying the order database via DataAccess Layer
      * and get the list of orders that have not been shipped. The list will be
@@ -403,7 +427,7 @@ public class NewJFrame extends javax.swing.JFrame {
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new NewJFrame().setVisible(true);
+                new NewJFrame();
             }
         });
     }

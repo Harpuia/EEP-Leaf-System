@@ -1,4 +1,3 @@
-
 /**
  * ****************************************************************************
  * File:NewJFrame.java Course: 17655 Project: Assignment 2 Copyright: Copyright
@@ -10,18 +9,11 @@
  * shrubs, and seeds.
  *
  *****************************************************************************
- */
-/*
- * AddInventoryMainFrame.java
- *
- * Created on Jan 29, 2010, 9:24:23 PM
- */
 /**
- *
- * @author lattanze
+ * @author Yazid Hamdi
  */
 public class InventoryMainFrame extends javax.swing.JFrame {
-
+    private LoginWindow loginWindow;
     String versionID = "v2.10.10";
 
     /**
@@ -30,6 +22,16 @@ public class InventoryMainFrame extends javax.swing.JFrame {
     public InventoryMainFrame() {
         initComponents();
         jLabel1.setText("Inventory Management Application " + versionID);
+        
+        loginWindow = new LoginWindow(this);
+        loginWindow.setVisible(true);
+        loginWindow.setModal(true);
+        
+        if(loginWindow.isSucceeded()) {
+            setVisible(true);
+        } else {
+            System.exit(1);
+        }
     }
 
     /**
@@ -70,6 +72,11 @@ public class InventoryMainFrame extends javax.swing.JFrame {
         jRadioBtRefMaterial = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jRadioButton1.setText("Trees");
         jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -620,6 +627,15 @@ public class InventoryMainFrame extends javax.swing.JFrame {
         jRadioButton3.setSelected(false);
     }//GEN-LAST:event_jRadioBtProcessActionPerformed
 
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        String log = null;
+        UserManagementBusinessLogic userBL = loginWindow.userBL;
+        boolean response = userBL.logout(log);
+        if(response == false) {
+            System.out.println(log);
+        }
+    }//GEN-LAST:event_formWindowClosing
+
     /**
      * main entry of the application
      *
@@ -628,7 +644,7 @@ public class InventoryMainFrame extends javax.swing.JFrame {
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new InventoryMainFrame().setVisible(true);
+                new InventoryMainFrame();                
             }
         });
     }
