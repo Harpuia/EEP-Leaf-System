@@ -68,6 +68,8 @@ cd EEPs/MySQLData
 mysql -u root -p[root pwd] -D administration < administration.sql
 ```
 
+* By importing the initial SQL Script, we create an account with username `admin` and password `password`. 
+
 ### To compile the code:
 
 * Open NetBeans 8.2 and open **all 7 projects in the folder**.
@@ -78,6 +80,7 @@ mysql -u root -p[root pwd] -D administration < administration.sql
 
 * Simply select one of the Java applications (`Inventory`, `OrderApp` or `ShippingApp`) and click the run icon. 
 * **Note that there are 7 NetBeans project in total, but also 3 of them are Java applications that will be run. The other 4 projects are libraries we built.**
+* There will be a login window pop up in each application. Note that we create a default administration account with username `admin` and password `password`.
 
 ### To run without NetBeans IDE:
 
@@ -96,5 +99,5 @@ java -jar OrderApp.jar
 cd EEPs/OrderApp/dist
 java -jar OrderApp.jar
 ```
-
+* There will be a login window pop up in each application. Note that we create a default administration account with username `admin` and password `password`.
 
