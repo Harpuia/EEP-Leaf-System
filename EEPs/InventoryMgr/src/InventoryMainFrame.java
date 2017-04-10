@@ -9,15 +9,8 @@
  * shrubs, and seeds.
  *
  *****************************************************************************
- */
-/*
- * AddInventoryMainFrame.java
- *
- * Created on Jan 29, 2010, 9:24:23 PM
- */
 /**
- *
- * @author lattanze
+ * @author Yazid Hamdi
  */
 public class InventoryMainFrame extends javax.swing.JFrame {
     private LoginWindow loginWindow;

@@ -15,7 +15,7 @@ import java.sql.*;
 /*
  * Created on Feb 4, 2010, 7:40:03 PM
  *
- * @author lattanze
+ * @author Jiawei Li
  */
 public class NewJFrame extends javax.swing.JFrame {
     private LoginWindow loginWindow;
