@@ -1,4 +1,4 @@
-# Chaos Monkeys (Data61) code for Architecture assignment A3
+# EEPLeaf Information Management System
 
 ## Introduction
 
